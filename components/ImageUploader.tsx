@@ -76,7 +76,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onFilesUploaded, m
       />
       <button
         onClick={() => inputRef.current?.click()}
-        className="w-full flex items-center justify-center gap-2 bg-brand-gray-dark border-2 border-dashed border-brand-gray-medium p-4 rounded-md text-gray-400 hover:bg-brand-gray-medium hover:text-white transition-colors"
+        className="w-full flex items-center justify-center gap-2 bg-brand-surface border-2 border-dashed border-white/20 p-4 rounded-md text-brand-text-muted hover:bg-white/5 hover:text-white transition-colors"
       >
         <UploadIcon />
         {buttonText}

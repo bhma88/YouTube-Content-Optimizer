@@ -22,23 +22,23 @@ export const TitleSelectionStep: React.FC<TitleSelectionStepProps> = ({ titles, 
     <div className="w-full">
       <div className="text-center mb-8">
         <h2 className="text-3xl md:text-4xl font-bold mb-2">Step 2: Choose Your Favorite Title</h2>
-        <p className="text-lg text-gray-400">Here are 20 titles for your video about "<span className="font-semibold text-white">{topic}</span>". Select one to create a thumbnail.</p>
+        <p className="text-lg text-brand-text-muted">Here are 20 titles for your video about "<span className="font-semibold text-white">{topic}</span>". Select one to create a thumbnail.</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {titles.map((item, index) => (
-          <div key={index} className="bg-brand-gray-light p-4 rounded-lg flex flex-col justify-between border border-transparent hover:border-brand-red transition-all">
-            <p className="text-base mb-4">{item.title}</p>
-            <div className="flex items-center justify-between gap-2">
+          <div key={index} className="bg-brand-surface p-4 rounded-xl flex flex-col justify-between border border-white/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-brand-primary/80 hover:-translate-y-1.5 hover:shadow-brand-primary/30">
+            <p className="text-base mb-4 flex-grow">{item.title}</p>
+            <div className="flex items-center justify-between gap-2 mt-2">
               <button
                 onClick={() => handleCopy(item.title, index)}
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                className="flex items-center gap-2 text-sm text-brand-text-muted hover:text-white transition-colors"
               >
                 <CopyIcon />
                 {copiedIndex === index ? 'Copied!' : 'Copy'}
               </button>
               <button
                 onClick={() => onTitleSelected(item.title)}
-                className="bg-brand-red text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
+                className="bg-brand-primary text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-brand-secondary transition-colors"
               >
                 Select & Create Thumbnail
               </button>

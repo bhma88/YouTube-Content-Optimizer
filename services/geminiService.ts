@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { GeneratedTitle, StyleAttributes, ImageData } from '../types';
 
@@ -101,10 +100,14 @@ The description must:
 - Naturally incorporate the following keywords throughout the text: ${keywords.join(', ')}.
 - Include 3-5 relevant hashtags at the end (e.g., #React #WebDevelopment).
 - Have a clear structure with paragraphs for readability.
-- Optionally include a call-to-action (e.g., "Subscribe for more content!").`,
+- Optionally include a call-to-action (e.g., "Subscribe for more content!").
+- IMPORTANT: Do not include any introductory phrases or conversational filler. The output should be only the description itself, starting directly with the hook.`,
     });
     
-    return response.text.trim();
+    let descriptionText = response.text.trim();
+    // Clean up a specific, unwanted introductory phrase if the model still includes it.
+    descriptionText = descriptionText.replace(/^بالتأكيد! إليك وصف فيديو يوتيوب احترافي ومُحسّن لمحركات البحث \(SEO\) حول مدينة كلميم، مصمم لجذب المشاهدين وتحقيق ترتيب عالٍ في نتائج البحث\./, '').trim();
+    return descriptionText;
   } catch (error) {
     console.error("Error generating description:", error);
     throw new Error("Failed to generate description. Please try again.");
@@ -124,7 +127,7 @@ ${faceImage ? "Incorporate the person's face from the provided image naturally a
 The title text "${title}" should be a bold, readable overlay on the thumbnail.
 Use attention-grabbing colors and a dynamic composition that stands out in YouTube search results.
 ${stylePrompt}
-Ensure the final image is exactly 1280x720 pixels.`;
+Ensure the final image is exactly 1280x720 pixels and has extremely high detail and quality, aiming for a final file size larger than 2MB.`;
 
     const contents = faceImage
       ? { parts: [{ text: textPrompt }, fileToGenerativePart(faceImage.base64, 'image/jpeg')] }
@@ -160,7 +163,7 @@ export const editThumbnail = async (
         const textPrompt = `Take the existing YouTube thumbnail provided and apply the following edit: "${editCommand}".
 The original title for context is "${title}".
 ${faceImage ? "The original subject's face is also provided for reference, ensure the person's likeness is preserved." : ""}
-The output must be a new, high-quality 1280x720 YouTube thumbnail incorporating the change.`;
+The output must be a new, high-quality 1280x720 YouTube thumbnail incorporating the change. It should have extremely high detail and quality, aiming for a final file size larger than 2MB.`;
 
         const parts = [
             { text: textPrompt },
